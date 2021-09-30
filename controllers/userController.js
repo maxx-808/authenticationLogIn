@@ -70,4 +70,54 @@ module.exports = {
       console.log("register err", err);
     }
   },
+  login: async (req, res) => {
+    try {
+      //saving the input of email and password from user
+      const { email, password } = req.body;
+
+      //if no email input, send err
+      if (!email) {
+        res.status(400).json({ msg: "Please enter an email" });
+      }
+
+      //if no password input, send err
+      if (!password) {
+        res.status(400).json({ msg: "Please enter a password" });
+      }
+
+      //searching for user based on email inputted
+      const user = await User.findOne({ email: email });
+
+      //if no user found, send err
+      if (!user) {
+        res.status(401).json({
+          msg: "The email or password you have entered is incorrect",
+        });
+      }
+
+      // if there is a match, check password with the encryption password
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      //if not a match, send err
+      if (!isMatch) {
+        res
+          .status(401)
+          .json({ msg: "The email or password you have entered is incorrect" });
+      }
+
+      //if user had not confirmed account, send err
+      if (user.status != "active") {
+        return res
+          .status(401)
+          .json({ msg: "You must confirm your email before logging in" });
+      }
+
+      //creates a token to allow the account to stay logged in for 24 hours
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
+    } catch (err) {
+      res.status(500).json({ msg: err });
+    }
+  },
 };
