@@ -68,6 +68,7 @@ module.exports = {
       res.json(savedUser);
     } catch (err) {
       console.log("register err", err);
+      res.status(500).json({ msg: err });
     }
   },
   login: async (req, res) => {
@@ -115,6 +116,15 @@ module.exports = {
       //creates a token to allow the account to stay logged in for 24 hours
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "24h",
+      });
+
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          email: user.email,
+          name: [user.fName, user.lName],
+        },
       });
     } catch (err) {
       res.status(500).json({ msg: err });
