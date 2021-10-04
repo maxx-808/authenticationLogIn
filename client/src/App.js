@@ -34,7 +34,8 @@ function App() {
     <div className="App">
       <Router>
         <UserContext.Provider value={{ userData, setUserData }}>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Landing} />
+          <Route path="/login" component={Login} />
         </UserContext.Provider>
       </Router>
     </div>
