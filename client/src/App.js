@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import UserContext from "./Context/UserContext";
 
 import Login from "./Pages/Login";
-import { TokenExpiredError } from "jsonwebtoken";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -26,7 +27,7 @@ function App() {
   };
 
   useEffect(() => {
-    checkLoggedIn();
+    loginCheck();
   }, []);
 
   return (
