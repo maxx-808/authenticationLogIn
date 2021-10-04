@@ -43,6 +43,22 @@ const Login = () => {
           type="text"
           name="email"
         />
+        <label className="loginLabels">Password</label>
+        <input
+          style={{ color: "black", borderBottom: "1px solid grey" }}
+          onChange={onChange}
+          type="password"
+          name="password"
+        />
+        <input
+          style={{
+            marginLeft: "15px",
+            backgroundColor: "lightGrey",
+            borderRadius: "10px",
+          }}
+          type="submit"
+          name="Login"
+        />
       </form>
     </div>
   );

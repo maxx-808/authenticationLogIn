@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.loginLabels {
+  color: black;
+  margin: 5px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.page {
+  padding-bottom: 56px;
+  min-height: 890px;
+}
