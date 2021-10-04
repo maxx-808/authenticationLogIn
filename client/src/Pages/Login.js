@@ -9,6 +9,10 @@ const Login = () => {
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   const submitLoginForm = async (e) => {
     e.preventDefault();
     try {
@@ -31,7 +35,14 @@ const Login = () => {
   return (
     <div className="page">
       <form onSubmit={submitLoginForm}>
-        <h1>Login</h1>
+        <h1 style={{ padding: "20px" }}>Login</h1>
+        <label className="loginLabels">Email</label>
+        <input
+          style={{ color: "black", borderBottom: "1px solid grey" }}
+          onChange={onChange}
+          type="text"
+          name="email"
+        />
       </form>
     </div>
   );
